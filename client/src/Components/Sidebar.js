@@ -3,10 +3,13 @@ import Messages from "../Components/SidebarComponents/Messages";
 import MessageModal from "../Components/SidebarComponents/MessageModal";
 import Contacts from "../Components/SidebarComponents/Contacts";
 import ContactModal from "../Components/SidebarComponents/ContactModal";
+import useCopyToClipBoard from "../Hooks/useCopyToClipBoard";
 
 const Sidebar = ({ userId }) => {
   const [activeTab, setActiveTab] = useState("messages");
   const [modalState, setModalState] = useState(null);
+
+  const [isCopied, handleCopyToClipboard] = useCopyToClipBoard(2000);
 
   const handleMessageTab = () => {
     setActiveTab("messages");
@@ -45,6 +48,24 @@ const Sidebar = ({ userId }) => {
         <span className="user-Id">
           <p>
             Your Id : <span className="idid">{userId}</span>
+            <span
+              className="clipboard-Container"
+              onClick={() => handleCopyToClipboard(userId)}
+            >
+              {isCopied ? (
+                <img
+                  src={require("../Assets/copied.jpg")}
+                  alt="Copied Logo"
+                  title="Copied "
+                />
+              ) : (
+                <img
+                  src={require("../Assets/notCopied.jpg")}
+                  alt="Uncopied Logo"
+                  title="Uncopied"
+                />
+              )}
+            </span>
           </p>
         </span>
         <span

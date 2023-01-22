@@ -1,19 +1,26 @@
 import React, { useRef } from "react";
+import { useContact } from "../../Contexts/ContactsProvider";
 
 const ContactModal = ({ handleCloseModal, setModalState }) => {
   const inputIdRef = useRef();
   const inputNameRef = useRef();
+  const formRef = useRef();
+
+  const { createContact } = useContact();
 
   const handleCreateContact = (e) => {
     e.preventDefault();
     setModalState("");
-    // const contactId = inputIdRef.current.value;
-    // const contactName = inputNameRef.current.value;
+    const contactId = inputIdRef.current.value;
+    const contactName = inputNameRef.current.value;
+    createContact(contactId, contactName);
+    formRef.current.reset();
   };
 
   return (
     <div className="contactmodal-Container">
       <form
+        ref={formRef}
         className="inner-Contactmodal-Container"
         onSubmit={handleCreateContact}
       >
