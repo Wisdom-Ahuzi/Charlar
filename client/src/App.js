@@ -1,10 +1,15 @@
-import "./App.scss";
+import React from "react";
+import useLocalStorage from "./Hooks/useLocalStorage";
+import "./Styles/App.scss";
+import Dashboard from "./Views/Dashboard";
+import { Login } from "./Views/Login";
 
 function App() {
-  return (
-    <div className="App">
-      <p>Hello World!</p>
-    </div>
+  const [userId, setUserId] = useLocalStorage("id");
+  return userId ? (
+    <Dashboard userId={userId} />
+  ) : (
+    <Login setUserId={setUserId} />
   );
 }
 

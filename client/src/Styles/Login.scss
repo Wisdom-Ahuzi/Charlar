@@ -1,0 +1,253 @@
+$default-White: rgba(235, 228, 228, 0.968);
+// $landmark-Colour: darkcyan;
+$landmark-Colour: rgb(88, 43, 130);
+
+@mixin display($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+.login-Container {
+  width: 100%;
+  height: 100vh;
+  @include display($justify: unset, $direction: unset, $align: unset);
+
+  .left-Side-Container {
+    width: 50%;
+    height: inherit;
+    background-color: $landmark-Colour;
+    @include display();
+
+    .inner-Left-Side-Container {
+      width: 95%;
+      height: inherit;
+      @include display($direction: column);
+      .span-One-Container {
+        margin-top: 30px;
+        width: inherit;
+        height: 35%;
+        span {
+          @include display($justify: flex-start);
+          gap: 5px;
+          img {
+            width: 25px;
+            height: 25px;
+          }
+          small {
+            font-size: 17px;
+            font-weight: 800;
+            color: $default-White;
+          }
+        }
+      }
+      .middle-Container {
+        width: inherit;
+        height: 65%;
+        @include display($justify: unset, $direction: column);
+        gap: 40px;
+        h1 {
+          width: 90%;
+          font-size: 1.9rem;
+          text-align: center;
+          color: $default-White;
+        }
+        .developer-Container {
+          width: 40%;
+          height: 150px;
+          @include display($direction: column, $justify: space-evenly);
+          img {
+            border-radius: 50%;
+            width: 85px;
+            height: 85px;
+            object-fit: cover;
+          }
+          p {
+            font-weight: 800;
+            font-size: 15px;
+            color: $default-White;
+          }
+
+          small {
+            font-size: 13px;
+            color: $default-White;
+          }
+        }
+      }
+
+      .copyright-Container {
+        width: inherit;
+        height: 5%;
+        .copyrights {
+          @include display($justify: unset);
+          gap: 3px;
+          span {
+            color: $default-White;
+          }
+          small {
+            color: $default-White;
+          }
+        }
+      }
+    }
+  }
+
+  .right-Side-Container {
+    width: 50%;
+    height: inherit;
+    @include display();
+    .inner-Right-Side-Container {
+      width: 60%;
+      height: 40%;
+      @include display($justify: unset, $direction: column, $align: unset);
+      gap: 30px;
+
+      img {
+        width: 50px;
+        height: 50px;
+      }
+      .sign-Container {
+        width: 100%;
+        height: 60px;
+        @include display($justify: unset, $direction: column, $align: unset);
+        gap: 7px;
+
+        h3 {
+          font-size: 1.7rem;
+        }
+        p {
+          font-size: 15px;
+          color: rgba(130, 124, 124, 0.915);
+        }
+      }
+
+      .id-Container {
+        width: 100%;
+        height: 60px;
+        @include display($justify: unset, $direction: column, $align: unset);
+        gap: 30px;
+
+        input[type="text"] {
+          background-color: transparent;
+          width: 100%;
+          padding: 0 0 12px 0;
+          font-size: 15px;
+          border-top-color: transparent;
+          border-right-color: transparent;
+          border-left-color: transparent;
+          border-bottom-color: rgba(195, 195, 195, 0.915);
+          transition: all 0.5s linear;
+
+          &:focus {
+            outline: unset;
+            border-bottom-color: $landmark-Colour;
+            transition: all 0.5s linear;
+          }
+
+          &::placeholder {
+            font-size: 14px;
+          }
+        }
+        button {
+          width: 100%;
+          padding: 11px;
+          border: unset;
+          font-size: 15px;
+          color: $default-White;
+          background-color: $landmark-Colour;
+          cursor: pointer;
+          transition: all 1s ease;
+
+          &:hover {
+            background-color: rgb(64, 21, 114);
+            transition: all 1s ease;
+          }
+        }
+      }
+      .create-Id {
+        margin-top: 35px;
+        p {
+          font-size: 14px;
+          text-align: center;
+          span {
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .login-Container {
+    @include display($justify: unset, $direction: column, $align: unset);
+    .left-Side-Container {
+      width: 100%;
+      height: 635px !important;
+    }
+    .right-Side-Container {
+      width: 100%;
+      height: 635px !important;
+      .inner-Right-Side-Container {
+        @include display($justify: center, $direction: column, $align: unset);
+        height: 635px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .login-Container {
+    height: 700px;
+    .left-Side-Container {
+      height: 635px !important;
+
+      .inner-Left-Side-Container {
+        .middle-Container {
+          height: 120%;
+          h1 {
+            font-size: 1.6rem;
+          }
+          & .developer-Container {
+            p {
+              font-size: 13px;
+            }
+            small {
+              font-size: 11px;
+            }
+          }
+        }
+      }
+    }
+
+    .right-Side-Container {
+      width: 90%;
+      margin: 0 auto;
+      @include display();
+      .inner-Right-Side-Container {
+        width: 90%;
+        height: 600px !important;
+        gap: 20px;
+
+        .sign-Container {
+          h3 {
+            font-size: 1.5rem;
+          }
+          p {
+            font-size: 12px;
+          }
+        }
+        .create-Id {
+          p {
+            font-size: 12px;
+          }
+          span {
+            font-size: 13px !important;
+          }
+        }
+      }
+    }
+  }
+}

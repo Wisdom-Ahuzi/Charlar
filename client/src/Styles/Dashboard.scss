@@ -1,0 +1,190 @@
+$default-White: rgba(235, 228, 228, 0.968);
+$message-White: rgb(131, 129, 129);
+// $landmark-Colour: darkcyan;
+$landmark-Colour: rgb(88, 43, 130);
+
+@mixin display($justify: center, $align: center, $direction: row) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $align;
+  flex-direction: $direction;
+}
+.dashboard-Container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 27% 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "sidebar chats";
+}
+
+.sidebar-Container {
+  grid-area: "sidebar";
+  display: grid;
+  box-shadow: 1px 3px 12px 4px rgb(81, 93, 132);
+  grid-template-columns: 1fr;
+  grid-template-rows: 7% 1fr 12%;
+  grid-template-areas:
+    "tabNav "
+    "tabContent"
+    "userId";
+
+  .tab-Nav-Container {
+    grid-area: "tabNav";
+    @include display($justify: space-between);
+    cursor: pointer;
+    transition: all 0.5s linear;
+    border-bottom: 2px solid $landmark-Colour;
+
+    #messages {
+      width: 50%;
+      height: 100%;
+      @include display();
+      transition: all 0.5s ease;
+      color: $message-White;
+    }
+
+    #contacts {
+      width: 50%;
+      height: 100%;
+      @include display();
+      transition: all 0.5s ease;
+      position: relative;
+      color: $message-White;
+    }
+
+    .activeTab {
+      transition: all 0.5s ease;
+      color: $default-White !important;
+      font-weight: 700;
+      background-color: $landmark-Colour;
+    }
+  }
+  .user-Id-Container {
+    grid-area: "userId";
+    border-top: 2px solid $message-White;
+    cursor: pointer;
+
+    @include display(
+      $direction: column,
+      $align: unset,
+      $justify: space-between
+    );
+    .user-Id {
+      height: 45%;
+      padding-left: 5px;
+      @include display($direction: column, $align: unset, $justify: center);
+      font-weight: 700;
+      .idid {
+        font-size: 15px;
+        font-weight: 300;
+      }
+    }
+    .new-Container {
+      height: 55%;
+      @include display();
+      color: $default-White;
+      background-color: $landmark-Colour;
+      p {
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .modal-Container {
+    display: none;
+    .messagemodal-Container {
+      position: absolute;
+      top: 0;
+      z-index: 3;
+      left: 50%;
+    }
+
+    .contactmodal-Container {
+      position: absolute;
+      top: 0;
+      z-index: 3;
+      left: 35%;
+      width: 600px;
+      height: 300px;
+      background-color: rgb(219, 219, 228);
+      @include display($align: unset);
+      .inner-Contactmodal-Container {
+        width: 95%;
+        @include display($direction: column, $justify: unset, $align: unset);
+        header {
+          height: 25%;
+          border-bottom: 1px solid $message-White;
+          @include display($justify: space-between);
+          h3 {
+            font-size: 1.3rem;
+          }
+          span {
+            cursor: pointer;
+            font-size: 20px;
+          }
+        }
+        .modal-Id-Container,
+        .modal-Name-Container {
+          height: 25%;
+          @include display($justify: unset);
+
+          input[type="text"] {
+            background-color: transparent;
+            width: 100%;
+            padding: 0 0 12px 0;
+            font-size: 15px;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: rgba(195, 195, 195, 0.915);
+            transition: all 0.5s linear;
+
+            &:focus {
+              outline: unset;
+              border-bottom-color: $landmark-Colour;
+              transition: all 0.5s linear;
+            }
+
+            &::placeholder {
+              font-size: 14px;
+            }
+          }
+        }
+        .create-Contact-Container {
+          height: 25%;
+          @include display();
+
+          button {
+            width: 70%;
+            height: 60%;
+            border-radius: 7px;
+            border: unset;
+            font-size: 17px;
+            color: $default-White;
+            background-color: $landmark-Colour;
+            cursor: pointer;
+            transition: all 1s ease;
+
+            &:hover {
+              background-color: rgb(64, 21, 114);
+              transition: all 1s ease;
+            }
+          }
+        }
+      }
+    }
+
+    #closeModal {
+      display: none !important;
+    }
+  }
+}
+#openModal {
+  display: flex !important;
+}
+
+.chats-Container {
+  grid-area: "chats";
+  //   background-color: silver;
+}
