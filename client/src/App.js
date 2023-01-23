@@ -1,5 +1,6 @@
 import React from "react";
 import { ContactsProvider } from "./Contexts/ContactsProvider";
+import { MessagesProvider } from "./Contexts/MessagesProvider";
 import useLocalStorage from "./Hooks/useLocalStorage";
 import "./Styles/App.scss";
 import Dashboard from "./Views/Dashboard";
@@ -9,7 +10,9 @@ function App() {
   const [userId, setUserId] = useLocalStorage("id");
   const dashboard = (
     <ContactsProvider>
-      <Dashboard userId={userId} />
+      <MessagesProvider>
+        <Dashboard userId={userId} />
+      </MessagesProvider>
     </ContactsProvider>
   );
   return userId ? dashboard : <Login setUserId={setUserId} />;
