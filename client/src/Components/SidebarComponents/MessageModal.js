@@ -7,6 +7,7 @@ const MessageModal = ({ handleCloseModal, setModalState }) => {
   const { createMessage } = useMessage();
   const [selectedContactId, setSelectedContactId] = useState([]);
   const messageFormRef = useRef();
+  const [searchText, setSearchText] = useState("");
 
   const handleCreateMessage = (e) => {
     e.preventDefault();
@@ -37,17 +38,38 @@ const MessageModal = ({ handleCloseModal, setModalState }) => {
           <h3>Create Message</h3>
           <span onClick={handleCloseModal}>X</span>
         </header>
+        <section className="search-Container">
+          <input
+            type="text"
+            placeholder="Search Contacts"
+            onChange={(e) => setSearchText(e.target.value)}
+            value={searchText}
+          />
+        </section>
         <section className="all-Contactsmodal-Container">
-          {contacts.map((contact) => (
-            <label key={contact.id}>
-              <input
-                type="checkbox"
-                value={selectedContactId.includes(contact.id)}
-                onChange={() => handleChangeCheckbox(contact.id)}
-              />
-              {contact.name}
-            </label>
-          ))}
+          {contacts
+            .sort((a, b) => {
+              if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
+            })
+            .filter((c) => {
+              return searchText === "" ? c : c.name.includes(searchText);
+            })
+            .map((contact) => (
+              <label key={contact.id}>
+                <input
+                  type="checkbox"
+                  value={selectedContactId.includes(contact.id)}
+                  onChange={() => handleChangeCheckbox(contact.id)}
+                />
+                {contact.name}
+              </label>
+            ))}
         </section>
 
         <section className="create-Contact-Container">

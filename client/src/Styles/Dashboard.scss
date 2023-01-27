@@ -21,6 +21,7 @@ $landmark-Colour: rgb(88, 43, 130);
 .sidebar-Container {
   grid-area: "sidebar";
   display: grid;
+  height: 100vh;
   box-shadow: 1px 3px 12px 4px rgb(81, 93, 132);
   grid-template-columns: 1fr;
   grid-template-rows: 7% 1fr 12%;
@@ -244,6 +245,37 @@ $landmark-Colour: rgb(88, 43, 130);
             font-size: 20px;
           }
         }
+        .search-Container {
+          width: 100%;
+          height: 50px;
+          @include display($justify: unset);
+          position: sticky;
+          top: 50px;
+          background-color: transparent;
+
+          input[type="text"] {
+            background-color: transparent;
+            width: 100%;
+            padding: 0 0 12px 0;
+            font-size: 15px;
+            border-top-color: transparent;
+            border-right-color: transparent;
+            border-left-color: transparent;
+            border-bottom-color: rgba(195, 195, 195, 0.915);
+            transition: all 0.5s linear;
+
+            &:focus {
+              outline: unset;
+              border-bottom-color: $landmark-Colour;
+              transition: all 0.5s linear;
+            }
+
+            &::placeholder {
+              font-size: 14px;
+            }
+          }
+        }
+
         .modal-Id-Container,
         .modal-Name-Container {
           height: 25%;
@@ -341,6 +373,7 @@ $landmark-Colour: rgb(88, 43, 130);
 .chats-Container {
   grid-area: "chats";
   display: grid;
+  height: 100vh;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 65px;
   grid-template-areas:
@@ -352,7 +385,7 @@ $landmark-Colour: rgb(88, 43, 130);
     width: 100%;
     .chats-Holder {
       width: 100%;
-      height: 720px;
+      height: 90vh;
       display: flex;
       flex-direction: column;
       padding: 0 3px 0 3px;
@@ -432,4 +465,7 @@ $landmark-Colour: rgb(88, 43, 130);
       }
     }
   }
+}
+.remove {
+  display: none !important;
 }

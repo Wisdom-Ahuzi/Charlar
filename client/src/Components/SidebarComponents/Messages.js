@@ -5,6 +5,25 @@ const Messages = () => {
   const { messages, selectedMessageIndex } = useMessage();
   const [searchText, setSearchText] = useState("");
 
+  const spans = document.querySelectorAll(".user-Message");
+  const spanArray = Array.from(spans);
+
+  if (spanArray.length === 0) {
+    console.log("empty");
+  } else {
+    spanArray.forEach((span) => {
+      if (searchText !== "") {
+        if (span.innerText === "") {
+          span.classList.add("remove");
+        } else {
+          span.classList.remove("remove");
+        }
+      } else {
+        span.classList.remove("remove");
+      }
+    });
+  }
+
   return (
     <div className="messages-Container">
       <section className="search-Container">
