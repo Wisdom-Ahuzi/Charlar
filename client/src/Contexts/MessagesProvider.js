@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect, useCallback } from "react";
 import useLocalStorage from "../Hooks/useLocalStorage";
 import { useContact } from "./ContactsProvider";
+import { useSocket } from "./SocketProvider";
 const MessagesContext = React.createContext();
 
 export const useMessage = () => {
@@ -11,6 +12,7 @@ export const MessagesProvider = ({ children, userId }) => {
   const [messages, setMessages] = useLocalStorage("messages", []);
   const [selectedMessageIndex, setSelectedMessageIndex] = useState(0);
   const { contacts } = useContact();
+  const socket = useSocket();
 
   const createMessage = (receivers) => {
     setMessages((prevMessages) => {
@@ -42,29 +44,39 @@ export const MessagesProvider = ({ children, userId }) => {
     return { ...message, messagesChat, receivers, selected };
   });
 
-  const addChatToMessage = ({ receivers, text, sender }) => {
-    setMessages((prevMessages) => {
-      let madeChange = false;
-      const newMessage = { sender, text };
-      const newChats = prevMessages.map((message) => {
-        if (arrayEquality(message.receivers, receivers)) {
-          madeChange = true;
-          return {
-            ...message,
-            messages: [...message.messages, newMessage],
-          };
+  const addChatToMessage = useCallback(
+    ({ receivers, text, sender }) => {
+      setMessages((prevMessages) => {
+        let madeChange = false;
+        const newMessage = { sender, text };
+        const newChats = prevMessages.map((message) => {
+          if (arrayEquality(message.receivers, receivers)) {
+            madeChange = true;
+            return {
+              ...message,
+              messages: [...message.messages, newMessage],
+            };
+          }
+          return message;
+        });
+        if (madeChange) {
+          return newChats;
+        } else {
+          return [...prevMessages, { receivers, messages: [newMessage] }];
         }
-        return message;
       });
-      if (madeChange) {
-        return newChats;
-      } else {
-        return [...prevMessages, { receivers, messages: [newMessage] }];
-      }
-    });
-  };
+    },
+    [setMessages]
+  );
+
+  useEffect(() => {
+    if (socket == null) return;
+    socket.on("receive-message", addChatToMessage);
+    return () => socket.off("receive-message");
+  }, [socket, addChatToMessage]);
 
   const sendChat = (receivers, text) => {
+    socket.emit("send-message", { receivers, text });
     addChatToMessage({ receivers, text, sender: userId });
   };
 

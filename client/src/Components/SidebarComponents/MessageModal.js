@@ -41,7 +41,7 @@ const MessageModal = ({ handleCloseModal, setModalState }) => {
         <section className="search-Container">
           <input
             type="text"
-            placeholder="Search Contacts"
+            placeholder="Search "
             onChange={(e) => setSearchText(e.target.value)}
             value={searchText}
           />
