@@ -7,11 +7,13 @@ const MessageModal = ({ handleCloseModal, setModalState }) => {
   const { createMessage } = useMessage();
   const [selectedContactId, setSelectedContactId] = useState([]);
   const messageFormRef = useRef();
+
   const handleCreateMessage = (e) => {
     e.preventDefault();
+    createMessage(selectedContactId);
     setModalState("");
     messageFormRef.current.reset();
-    createMessage(selectedContactId);
+    window.location.reload(false);
   };
   const handleChangeCheckbox = (contactId) => {
     setSelectedContactId((prevSelectedContactId) => {

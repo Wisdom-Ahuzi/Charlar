@@ -10,7 +10,7 @@ function App() {
   const [userId, setUserId] = useLocalStorage("id");
   const dashboard = (
     <ContactsProvider>
-      <MessagesProvider>
+      <MessagesProvider userId={userId}>
         <Dashboard userId={userId} />
       </MessagesProvider>
     </ContactsProvider>
