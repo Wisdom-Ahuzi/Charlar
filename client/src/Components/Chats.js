@@ -13,6 +13,7 @@ const Chats = () => {
 
   const handleSendChat = (e) => {
     e.preventDefault();
+    if (text === " ") return;
     sendChat(
       selectedMessage.receivers.map((r) => r.id),
       text
@@ -34,25 +35,26 @@ const Chats = () => {
                   message.fromMe ? "my-Chat" : ""
                 }`}
               >
-                {" "}
-                <div
-                  className={`${message.fromMe ? "chat-Text" : "sender-Text"}`}
-                >
-                  {message.text}
-                </div>{" "}
                 <small
                   className={`fromMe ${message.fromMe ? "text-Right" : ""} `}
                 >
                   {message.fromMe ? "you" : message.senderName}
                 </small>{" "}
+                <div
+                  className={`${message.fromMe ? "chat-Text" : "sender-Text"}`}
+                >
+                  {message.text}
+                </div>{" "}
               </div>
             );
           })}
         </div>
       </section>
       <section className="create-Chat">
-        <form onSubmit={handleSendChat}>
+        <form onSubmit={handleSendChat} autoComplete="on" autoCorrect="on">
           <textarea
+            autoComplete="on"
+            autoCorrect="on"
             onChange={(e) => setText(e.target.value)}
             value={text}
           ></textarea>

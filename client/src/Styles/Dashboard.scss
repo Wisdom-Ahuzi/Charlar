@@ -18,11 +18,19 @@ $landmark-Colour: rgb(88, 43, 130);
   grid-template-areas: "sidebar chats";
 }
 
+* {
+  scroll-behavior: smooth;
+  &::-webkit-scrollbar-corner {
+    width: 1px;
+  }
+}
+
 .sidebar-Container {
   grid-area: "sidebar";
   display: grid;
   height: 100vh;
-  box-shadow: 1px 3px 12px 4px rgb(81, 93, 132);
+  border-right: 3px solid $landmark-Colour;
+  // box-shadow: 1px 3px 12px 4px rgb(81, 93, 132);
   grid-template-columns: 1fr;
   grid-template-rows: 7% 1fr 12%;
   grid-template-areas:
@@ -162,7 +170,7 @@ $landmark-Colour: rgb(88, 43, 130);
       }
 
       #true {
-        background-color: rgba(230, 205, 251, 0.529) !important;
+        background-color: rgb(229, 215, 247) !important;
         color: $landmark-Colour;
       }
 
@@ -374,6 +382,7 @@ $landmark-Colour: rgb(88, 43, 130);
   grid-area: "chats";
   display: grid;
   height: 100vh;
+
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 65px;
   grid-template-areas:
@@ -397,15 +406,18 @@ $landmark-Colour: rgb(88, 43, 130);
         color: $default-White;
         .chat-Text {
           text-align: left;
-          background-color: slateblue;
+          background-color: $landmark-Colour;
           padding: 15px;
-          border-radius: 10px;
-          width: auto;
+          border-radius: 10px 0px 10px 10px;
         }
         .sender-Text {
           padding: 15px;
-          border-radius: 10px;
-          background-color: darkcyan;
+          border-radius: 0px 10px 10px 10px;
+          background-color: rgba(234, 237, 244);
+          color: rgb(90, 93, 105);
+          max-width: 50%;
+          height: auto;
+          align-self: flex-start;
         }
         .fromMe {
           font-size: 12px;
@@ -418,7 +430,6 @@ $landmark-Colour: rgb(88, 43, 130);
 
       .my-Chat {
         align-self: flex-end;
-        // align-items: flex-end;
       }
     }
   }
