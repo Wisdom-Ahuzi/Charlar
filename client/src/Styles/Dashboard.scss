@@ -1,7 +1,7 @@
 $default-White: rgba(235, 228, 228, 0.968);
 $message-White: rgb(131, 129, 129);
-// $landmark-Colour: darkcyan;
 $landmark-Colour: rgb(88, 43, 130);
+$tab-View-text: 14px;
 
 @mixin display($justify: center, $align: center, $direction: row) {
   display: flex;
@@ -29,6 +29,7 @@ $landmark-Colour: rgb(88, 43, 130);
   grid-area: "sidebar";
   display: grid;
   height: 100vh;
+  position: relative;
   border-right: 3px solid $landmark-Colour;
   // box-shadow: 1px 3px 12px 4px rgb(81, 93, 132);
   grid-template-columns: 1fr;
@@ -72,6 +73,7 @@ $landmark-Colour: rgb(88, 43, 130);
 
   .tab-Content-Container {
     overflow: auto;
+    position: relative;
 
     .contacts-Container {
       width: 100%;
@@ -233,8 +235,8 @@ $landmark-Colour: rgb(88, 43, 130);
       position: absolute;
       top: 0;
       z-index: 3;
-      left: 35%;
-      width: 600px;
+      left: 150%;
+      width: 500px;
       height: 300px;
       background-color: rgb(219, 219, 228);
       @include display($align: unset);
@@ -378,6 +380,19 @@ $landmark-Colour: rgb(88, 43, 130);
   display: flex !important;
 }
 
+#shown {
+  display: none;
+}
+
+#show {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "chats";
+}
+
 .chats-Container {
   grid-area: "chats";
   display: grid;
@@ -478,4 +493,159 @@ $landmark-Colour: rgb(88, 43, 130);
 }
 .remove {
   display: none !important;
+}
+
+@media screen and (max-width: 768px) {
+  .dashboard-Container {
+    height: 633px;
+    grid-template-columns: 30% 1fr;
+
+    .sidebar-Container {
+      height: inherit;
+      .tab-Nav-Container {
+        #messages,
+        #contacts {
+          p {
+            font-size: $tab-View-text;
+          }
+        }
+      }
+
+      .tab-Content-Container {
+        .contacts-Container,
+        .messages-Container {
+          .search-Container {
+            input[type="text"] {
+              padding-bottom: 5px;
+              &::placeholder {
+                font-size: 12px;
+              }
+            }
+          }
+
+          .c-Container,
+          .m-Container {
+            .user-Contact-Container,
+            .user-Message {
+              height: 45px;
+              font-size: $tab-View-text;
+
+              p {
+                font-size: $tab-View-text;
+              }
+            }
+          }
+        }
+      }
+
+      .user-Id-Container {
+        .user-Id {
+          p {
+            font-size: $tab-View-text;
+          }
+          .idid {
+            font-size: 12px;
+          }
+        }
+        .new-Container p {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .chats-Container {
+      height: inherit;
+      .chats-Inner-Container .chats-Holder .individual-Chat-Container {
+        .chat-Text,
+        .sender-Text {
+          padding: 8px;
+          font-size: $tab-View-text;
+        }
+      }
+
+      .create-Chat {
+        form {
+          textarea {
+            width: 88%;
+            font-size: 13px;
+          }
+          button {
+            width: 12%;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .dashboard-Container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "chats";
+  }
+
+  .create-Chat {
+    form {
+      textarea {
+        width: 80% !important;
+      }
+      button {
+        width: 20% !important;
+      }
+    }
+  }
+
+  .sidebar-Container .modal-Container .contactmodal-Container,
+  .sidebar-Container .modal-Container .messagemodal-Container {
+    left: 10% !important;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .sidebar-Container .modal-Container .contactmodal-Container,
+  .sidebar-Container .modal-Container .messagemodal-Container {
+    width: 450px;
+    left: 11% !important;
+    .inner-Contactmodal-Container {
+      header {
+        height: 60px;
+        h3 {
+          font-size: 1rem;
+        }
+      }
+
+      .search-Container {
+        input[type="text"] {
+          padding: 0 0 10px 0;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 515px) {
+  .sidebar-Container .modal-Container .contactmodal-Container,
+  .sidebar-Container .modal-Container .messagemodal-Container {
+    width: 400px;
+    left: 9% !important;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .sidebar-Container .modal-Container .contactmodal-Container,
+  .sidebar-Container .modal-Container .messagemodal-Container {
+    width: 350px;
+    left: 10% !important;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .sidebar-Container .modal-Container .contactmodal-Container,
+  .sidebar-Container .modal-Container .messagemodal-Container {
+    width: 330px;
+    left: 5% !important;
+  }
 }

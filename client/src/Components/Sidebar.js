@@ -41,6 +41,7 @@ const Sidebar = ({ userId }) => {
           <p>Contacts</p>
         </span>
       </section>
+
       <section className="tab-Content-Container">
         {activeTab === "messages" ? <Messages /> : <Contacts />}
       </section>
