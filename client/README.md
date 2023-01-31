@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+# Charlar - Charlar Chat Application.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Table of contents
 
-## Available Scripts
+- [Overview](#overview)
+  - [Screenshot]
+- [My process](#my-process)
+  - [Built with](#built-with)
+  - [Continued development](#continued-development)
+  - [Useful resources](#useful-resources)
+- [Author](#author)
+- [Acknowledgments](#acknowledgments)
 
-In the project directory, you can run:
 
-### `yarn start`
+## Overview
+### _Charlar is a web application used to send and receive messages. 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Screenshot
+![46A58488-03DF-4F6A-AD2A-23A5607AD8BF_1_201_a](https://user-images.githubusercontent.com/93778975/215789761-b2d563b8-8c14-4c48-8936-d70f9f040cfa.jpeg)
+![1CFC52A0-5E43-4E7C-A23D-312D3BD90083_1_201_a](https://user-images.githubusercontent.com/93778975/215789778-966a01b5-e676-4d86-add6-eba3c1a80789.jpeg)
+![D9260E79-2699-4289-B1FB-B42529BD6367_1_201_a](https://user-images.githubusercontent.com/93778975/215789789-78233b8a-f751-45f8-b91e-8113f5fda80b.jpeg)
+![A56AE049-D2E5-48CC-AC2C-96FAAC6E6DB2_1_201_a](https://user-images.githubusercontent.com/93778975/215789809-25c7265a-186b-4620-bb3b-710f80277c81.jpeg)
+![9673D846-F050-4807-A93C-3720C75968E3_1_201_a](https://user-images.githubusercontent.com/93778975/215789818-bb20a8ce-95a4-4dff-ac5f-7945de27cf4e.jpeg)
+![7C42A10B-C3EE-44BA-839D-AAF43FC56700_1_201_a](https://user-images.githubusercontent.com/93778975/215789823-89a607e4-1d8a-456e-b82c-cffaa7ef8052.jpeg)
 
-### `yarn test`
+## My process
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Built with
 
-### `yarn build`
+- SCSS custom properties
+- Flexbox
+- SCSS Grid
+- Mobile-first workflow
+- [React js](https://beta.reactjs.org/) - JS library
+- [Sass](https://sass-lang.com) - CSS Preprocessor 
+- [Socket.io](https://socket.io/).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Some Nice Stuffs
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```JS
+    io.on("connection", (socket) => {
+  const userId = socket.handshake.query.userId;
+  socket.join(userId);
 
-### `yarn eject`
+  socket.on("send-message", ({ receivers, text }) => {
+    receivers.forEach((receiver) => {
+      const newReceivers = receivers.filter((r) => r !== receiver);
+      newReceivers.push(userId);
+      socket.broadcast.to(receiver).emit("receive-message", {
+        receivers: newReceivers,
+        sender: userId,
+        text,
+      });
+    });
+  });
+});
+```
+```scss
+    .dashboard-Container {
+  width: 100%;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 27% 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "sidebar chats";
+}
+```
+```JSX
+       <section className="c-Container">
+        {contacts
+          .sort((a, b) => {
+            if (a.name < b.name) {
+              return -1;
+            }
+            if (a.name > b.name) {
+              return 1;
+            }
+            return 0;
+          })
+          .filter((c) => {
+            return searchText === "" ? c : c.name.includes(searchText);
+          })
+          .map((contact) => (
+            <span className="user-Contact-Container" key={contact.id}>
+              <p>{contact.name}</p>
+            </span>
+          ))}
+      </section>
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Continued development
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Css Grid
+- Sass functions
+- React js
+- Sass
+- Node js
+- Express js
+- Socket.io
 
-## Learn More
+### Useful resources
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- [Socket.io]: This helped me while working with Backend. I'll Like to work with it in upcoming projects.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Author
+- Github - [@Wizzy-05](https://github.com/Wizzy-05)
+- Twitter - [@ahuzi_wisdom](https://twitter.com/ahuzi_wisdom)
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Acknowledgments
+- [@WebDev Simplified] Thank you so much
 
-### Analyzing the Bundle Size
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
