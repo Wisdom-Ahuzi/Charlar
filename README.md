@@ -1,5 +1,5 @@
 ## Charlar
-Web application built with Reactjs for private end-to-end Messaging
+Web application built with Reactjs and Socket.io for private end-to-end Messaging
 ### You must have the following installed
 - Node 
 - Socket.io
